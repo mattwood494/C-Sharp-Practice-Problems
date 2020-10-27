@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace Two_Sum
 {
@@ -52,20 +53,32 @@ namespace Two_Sum
          */
         static void Main(string[] args)
         {
-            int[] nums = { 3,3 }; //inputs
+            int[] nums = { 3,2, 4 }; //inputs
             int target = 6;
 
-             int[] solution = TwoSum(nums, target);
-            foreach (var item in solution) //print out solution to test if correct output was obtained
+            Console.WriteLine("Brute Force Solution:");
+            Console.WriteLine();
+            int[] bruteSolution = TwoSumBrute(nums, target);
+            foreach (var item in bruteSolution) //print out solution to test if correct output was obtained
+            {
+                Console.WriteLine(item);
+            }
+
+            Console.WriteLine();
+            Console.WriteLine();
+            Console.WriteLine();
+            Console.WriteLine();
+            Console.WriteLine("Dicitonary Solution");
+            int[] hashSolution = TwoSumHash(nums, target);
+            foreach (var item in hashSolution)
             {
                 Console.WriteLine(item);
             }
         }
 
-        static int[] TwoSum(int[] nums, int target)
+        static int[] TwoSumBrute(int[] nums, int target) //brute force method
         {
-            int[] solution = new int[2]; //To store the indices
-            int[] noSolution = { -1 };
+            int[] solution = new int[2]; //To store the indices 
 
             for (int i = 0; i < nums.Length; i++) //To loop through each number in nums
             {
@@ -87,7 +100,25 @@ namespace Two_Sum
                 }
             }
 
-            return noSolution; //To show that no two numbers in the array add up to target
+            throw new ArgumentException("No two sum solution"); //To show that no two numbers in the array add up to target
+        }
+
+        static int[] TwoSumHash(int[] nums, int target) //Solve the problem with a better runtime
+        {
+            Dictionary<int, int> map = new Dictionary<int, int>(); //where we will store our values with number in array as key and its index as the value
+            
+            for (int i = 0; i < nums.Length; i++) // To compare each number in nums to another to see if they add up to target
+            {
+                int complement = target - nums[i]; //To identify the complement to nums[i] we will look for in the dictionary map
+                if (map.ContainsKey(complement)) // Test to see if the complementing number to nums[i] exists in the dictionary map
+                {
+                    map.TryGetValue(complement, out int value); //if the complement does exist in map, then I will obtain the value associated
+                    return new int[] { value, i }; //return the array of two numbers that are the indices associated with the numbers in the originial array that add up to target.
+                }
+                map.Add(nums[i], i); //If the complementing number searching for to add up to target does not exist in map, then add the number at index i from nums as the key and i, which is the index of that number to the value place.
+            }
+            
+            throw new ArgumentException("No two sum solution"); //To show that no two numbers in the array add up to target
         }
 
     }
