@@ -13,6 +13,7 @@ namespace TestClass
     {
         static void Main(string[] args)
         {
+            //Inputting values that should not be allowed
             Teenager joe = new Teenager(99, 543, 200);
             Console.WriteLine(joe.Age);
             Console.WriteLine(joe.Grade);
@@ -21,6 +22,7 @@ namespace TestClass
             Console.WriteLine();
             Console.WriteLine();
 
+            //inputing values that should be allowed
             Teenager bob = new Teenager(18, 9, 3.29);
             Console.WriteLine(bob.Age);
             Console.WriteLine(bob.Grade);
