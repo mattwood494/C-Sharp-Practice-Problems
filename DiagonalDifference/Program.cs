@@ -14,6 +14,11 @@ using System;
 
 namespace DiagonalDifference
 {
+
+    /*Given a square matrix, calculate the absolute difference between the sums
+     * of its diagonals.
+     */
+
     class Result
     {
 
@@ -24,18 +29,22 @@ namespace DiagonalDifference
          * The function accepts 2D_INTEGER_ARRAY arr as parameter.
          */
 
-        public static int diagonalDifference(List<List<int>> arr)
-        {
-            int leftSum = 0;
-            int rightSum = 0;
 
+        //A list of lists is the input and diagonalDifference will return an int
+        //representing the difference between the diagonals
+        public static int diagonalDifference(List<List<int>> arr) 
+        {
+            int leftSum = 0; //sum of the left diagonal
+            int rightSum = 0; //sum of the right diagonal
+
+            //for loop adds the integers at the appropriate coordinate to its respective list
             for (int i = 0; i < arr.Count; i++)
             {
-                leftSum += arr.ElementAt(i).ElementAt(i);
-                rightSum += arr.ElementAt(i).ElementAt(arr.Count - (1 + i));
+                leftSum += arr.ElementAt(i).ElementAt(i); //adding integer at appropriate coordinates to leftSum
+                rightSum += arr.ElementAt(i).ElementAt(arr.Count - (1 + i)); //adding integer at appropriate coordinates to rightSum
             }
 
-            return Math.Abs(leftSum - rightSum);
+            return Math.Abs(leftSum - rightSum); //returning the absolute of the difference of leftSum and rightSum
         }
 
     }
@@ -45,15 +54,19 @@ namespace DiagonalDifference
         {
             
 
+            //n represents the number of rows and columns in the square matrix
             int n = Convert.ToInt32(Console.ReadLine().Trim());
 
+            //instantiating the list of list square matrix
             List<List<int>> arr = new List<List<int>>();
 
+            //takes the integer inputs from the user that will make up the square matrix
             for (int i = 0; i < n; i++)
             {
                 arr.Add(Console.ReadLine().TrimEnd().Split(' ').ToList().Select(arrTemp => Convert.ToInt32(arrTemp)).ToList());
             }
 
+            //stores the difference between diagonals in reult
             int result = Result.diagonalDifference(arr);
 
             Console.WriteLine(result);
